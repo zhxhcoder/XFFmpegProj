@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        applicationId "com.zhxh.xffmpeg"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    versions = [
+            'ffmpeg'    : '3.2.1-1.3',
+            'constraint': 'com.android.support.constraint:constraint-layout:1.1.2'
+    ]
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation versions.constraint
+
+    implementation group: 'org.bytedeco.javacpp-presets', name: 'ffmpeg', version: versions.ffmpeg
+    implementation group: 'org.bytedeco.javacpp-presets', name: 'ffmpeg', version: versions.ffmpeg, classifier: 'android-arm'
+    implementation(group: 'org.bytedeco', name: 'javacv-platform', version: '1.3') {
+        exclude group: 'org.bytedeco.javacpp-presets'
+    }
+
+}
